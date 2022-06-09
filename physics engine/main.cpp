@@ -171,10 +171,12 @@ struct Vec2
         return lhs /= rhs;
     }
 };
-
-float length(Vec2 v)
+namespace Vec2Math
 {
-    return sqrt(v.x * v.x + v.y * v.y);
+    float length(Vec2 v)
+    {
+        return sqrt(v.x * v.x + v.y * v.y);
+    }
 }
 
 struct VerletObject
@@ -211,7 +213,7 @@ struct Link
     void apply(std::vector<VerletObject>& verletObjects)
     {
         const Vec2 axis = verletObjects[obj_1].position_current - verletObjects[obj_2].position_current;
-        const float dist = length(axis);
+        const float dist = Vec2Math::length(axis);
         const Vec2 n = axis / dist;
         const float delta = target_dist - dist;
         if (verletObjects[obj_1].physics) verletObjects[obj_1].position_current += n * delta * 0.5f;
@@ -265,7 +267,7 @@ struct Solver
             VerletObject& obj = verletObjects[i];
 
             const Vec2 to_obj = obj.position_current - position;
-            const float dist = length(to_obj);
+            const float dist = Vec2Math::length(to_obj);
 
             if (dist > radius - obj.radius) {
                 const Vec2 n = to_obj / dist;
@@ -288,7 +290,7 @@ struct Solver
                 VerletObject& object_2 = verletObjects[i2];
 
                 const Vec2 collision_axis = object_1.position_current - object_2.position_current;
-                const float dist = length(collision_axis);
+                const float dist = Vec2Math::length(collision_axis);
                 const float min_dist = object_1.radius + object_2.radius;
                 if (dist < min_dist) {
                     const Vec2 n = collision_axis / dist;
@@ -339,7 +341,7 @@ int main(void)
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "physics engine");
+    InitWindow(screenWidth, screenHeight, "Physics Engine");
 
     SetTargetFPS(60);
 
