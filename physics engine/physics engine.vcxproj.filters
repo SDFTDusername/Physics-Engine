@@ -13,10 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\physics">
+      <UniqueIdentifier>{454dc677-1063-4d64-80f1-26f65a90fd0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vec2.hpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="random.hpp">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="link.hpp">
+      <Filter>Resource Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="solver.hpp">
+      <Filter>Resource Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="verletObject.hpp">
+      <Filter>Resource Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="vec2math.hpp">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
