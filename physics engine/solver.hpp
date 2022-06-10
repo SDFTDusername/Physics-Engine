@@ -3,13 +3,14 @@
 #include "vec2math.hpp"
 #include "verletObject.hpp"
 #include "link.hpp"
+#include "raylib.h"
 #include <vector>
 
 struct Solver
 {
     const Vec2 gravity = { 0, 1000 };
 
-    void update(std::vector<VerletObject>& verletObjects, std::vector<Link>& links, float dt)
+    void update(std::vector<VerletObject>& verletObjects, std::vector<Link>& links, float dt, Sound hit)
     {
         const uint32_t sub_steps = 8;
         const float sub_dt = dt / sub_steps;
@@ -23,8 +24,8 @@ struct Solver
                 links[l_i].apply(verletObjects);
             }
 
-            solveCollisions(verletObjects, sub_dt);
-            // updatePositions(verletObjects, sub_dt);
+            solveCollisions(verletObjects, sub_dt, hit);
+            // updatePositions(verletObjects, sub_dt, hit);
         }
     }
 
@@ -77,7 +78,7 @@ struct Solver
         }
     }
 
-    void solveCollisions(std::vector<VerletObject>& verletObjects, float dt)
+    void solveCollisions(std::vector<VerletObject>& verletObjects, float dt, Sound hit)
     {
         for (int i(verletObjects.size()); i--;)
         {
@@ -103,18 +104,18 @@ struct Solver
                 }
             }
 
-            verletObjects[i].updatePosition(dt);
+            verletObjects[i].updatePosition(dt, hit);
         }
     }
 
-    void updatePositions(std::vector<VerletObject>& verletObjects, float dt)
+    void updatePositions(std::vector<VerletObject>& verletObjects, float dt, Sound hit)
     {
         for (int i(verletObjects.size()); i--;)
         {
             if (!verletObjects[i].physics)
                 continue;
 
-            verletObjects[i].updatePosition(dt);
+            verletObjects[i].updatePosition(dt, hit);
         }
     }
 };

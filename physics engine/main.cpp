@@ -19,6 +19,9 @@ float cameraX = (screenWidth / 2);
 float cameraY = (screenHeight / 2) + 15;
 float cameraZoom = 4;
 
+Sound hit;
+Sound pop;
+
 Vec2 camera = { cameraX, cameraY };
 
 void controlsUpdate()
@@ -46,6 +49,8 @@ void controlsUpdate()
         Vec2 ballPosition = (mousePosition - camera) * cameraZoom;
 
         verletObjects.push_back({ ballPosition, random(10, 50), ColorFromHSV(random(0, 360), random(0, 100), random(0, 100)), true, ballPosition });
+
+        PlaySound(pop);
     }
 }
 
@@ -74,6 +79,11 @@ int main(void)
     // SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Physics Engine");
 
+    InitAudioDevice();
+
+    hit = LoadSound("hit.wav");
+    pop = LoadSound("pop.wav");
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) 
@@ -83,7 +93,7 @@ int main(void)
 
         controlsUpdate();
 
-        solver.update(verletObjects, links, GetFrameTime());
+        solver.update(verletObjects, links, GetFrameTime(), hit);
 
         BeginDrawing();
 
