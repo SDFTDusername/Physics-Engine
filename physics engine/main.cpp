@@ -15,8 +15,8 @@ Solver solver = {};
 int screenWidth = 800;
 int screenHeight = 450;
 
-float cameraX = (screenWidth / 2);
-float cameraY = (screenHeight / 2) + 15;
+float cameraX = ((float)screenWidth / 2);
+float cameraY = ((float)screenHeight / 2) + 15;
 float cameraZoom = 4;
 
 Vec2 camera = { cameraX, cameraY };
@@ -24,18 +24,18 @@ Vec2 camera = { cameraX, cameraY };
 void controlsUpdate()
 {
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
-        cameraY += GetFrameTime() * 2000 / cameraZoom;
+        cameraY += GetFrameTime() * 1500 / cameraZoom;
 
     if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
-        cameraY -= GetFrameTime() * 2000 / cameraZoom;
+        cameraY -= GetFrameTime() * 1500 / cameraZoom;
 
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
-        cameraX += GetFrameTime() * 2000 / cameraZoom;
+        cameraX += GetFrameTime() * 1500 / cameraZoom;
 
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
-        cameraX -= GetFrameTime() * 2000 / cameraZoom;
+        cameraX -= GetFrameTime() * 1500 / cameraZoom;
 
-    cameraZoom -= cameraZoom * GetMouseWheelMove() / 10;
+    cameraZoom -= cameraZoom * GetMouseWheelMove() / 15;
     if (cameraZoom < 0.01f) cameraZoom = 0.01f;
 
     camera = { cameraX, cameraY };
@@ -45,7 +45,7 @@ void controlsUpdate()
         Vec2 mousePosition = { (float)GetMouseX(), (float)GetMouseY() };
         Vec2 ballPosition = (mousePosition - camera) * cameraZoom;
 
-        verletObjects.push_back({ ballPosition, random(10, 50), ColorFromHSV(random(0, 360), random(0, 100), random(0, 100)), true, ballPosition });
+        verletObjects.push_back({ ballPosition, randomFloat(10, 50), ColorFromHSV(randomFloat(0, 360), randomFloat(0, 100), randomFloat(0, 100)), true, ballPosition });
     }
 }
 
@@ -71,7 +71,7 @@ int main(void)
 
     // ^ Test ^
 
-    // SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Physics Engine");
 
     SetTargetFPS(60);
@@ -80,6 +80,8 @@ int main(void)
     {
         screenWidth = GetScreenWidth();
         screenHeight = GetScreenHeight();
+
+        SetWindowSize(screenWidth, screenHeight);
 
         controlsUpdate();
 
@@ -90,15 +92,15 @@ int main(void)
         ClearBackground(DARKGRAY);
 
         float circleSize = 800;
-        DrawCircle(0 + cameraX, 0 + cameraY, circleSize / cameraZoom, BLACK);
+        DrawCircle((int)(0 + cameraX), (int)(0 + cameraY), circleSize / cameraZoom, BLACK);
 
         for (uint32_t i = 0; i < verletObjects.size(); i++)
         {
             const VerletObject obj = verletObjects[i];
-            DrawCircle((obj.position_current.x / cameraZoom) + cameraX, (obj.position_current.y / cameraZoom) + cameraY, obj.radius / cameraZoom, obj.color);
+            DrawCircle((int)((obj.position_current.x / cameraZoom) + cameraX), (int)((obj.position_current.y / cameraZoom) + cameraY), obj.radius / cameraZoom, obj.color);
         }
 
-        DrawRectangle(0, 0, screenWidth, 27.5f, BLACK);
+        DrawRectangle(0, 0, screenWidth, 28, BLACK);
 
         DrawFPS(5, 5);
         DrawText((std::to_string(verletObjects.size()) + std::string(" OBJECTS")).c_str(), 155, 5, 20, WHITE);

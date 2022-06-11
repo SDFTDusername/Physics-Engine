@@ -6,7 +6,7 @@
 struct VerletObject
 {
     Vec2 position_current;
-    int radius;
+    float radius;
     Color color;
     bool physics;
     Vec2 position_old;

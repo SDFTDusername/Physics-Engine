@@ -10,7 +10,7 @@ int random(int min, int max)
     return distribution(generator);
 }
 
-int randomFloat(float min, float max)
+float randomFloat(float min, float max)
 {
     std::uniform_real_distribution<float> distribution(min, max);
     return distribution(generator);

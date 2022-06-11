@@ -6,6 +6,6 @@ namespace Vec2Math
 {
     float length(Vec2 v)
     {
-        return sqrt(v.x * v.x + v.y * v.y);
+        return (float)sqrt(v.x * v.x + v.y * v.y);
     }
 }
