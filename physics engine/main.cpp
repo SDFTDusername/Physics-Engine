@@ -22,6 +22,13 @@ float cameraX = 0;
 float cameraY = -42;
 float cameraZoom = 0.25f;
 
+float dtTime = 0;
+
+int movingObject = -1;
+bool objectStatic = false;
+
+bool paused = false;
+
 Vec2 camera = { cameraX, cameraY };
 
 void controlsUpdate()
@@ -43,10 +50,67 @@ void controlsUpdate()
 
     camera = { cameraX, cameraY };
 
-    if (IsMouseButtonPressed(0) || IsMouseButtonDown(1))
+    const Vec2 mousePosition = { (float)(GetMouseX() - centerX), (float)(GetMouseY() - centerY) };
+    const Vec2 ballPosition = (mousePosition / cameraZoom) + camera;
+
+    if (IsKeyPressed(KEY_P))
+        paused = !paused;
+
+    if (IsMouseButtonDown(1))
     {
-        Vec2 mousePosition = { (float)(GetMouseX() - centerX), (float)(GetMouseY() - centerY) };
-        Vec2 ballPosition = (mousePosition / cameraZoom) + camera;
+        verletObjects.push_back({ ballPosition, randomFloat(10, 50), ColorFromHSV(randomFloat(0, 360), randomFloat(0, 100), randomFloat(0, 100)), true, ballPosition });
+    }
+
+    if (movingObject > -1 && IsMouseButtonUp(0))
+    {
+        VerletObject& obj = verletObjects[movingObject];
+
+        obj.physics = objectStatic;
+        obj.position_old = obj.position_current;
+        obj.acceleration = { 0, 0 };
+
+        movingObject = -1;
+
+        return;
+    }
+
+    if (movingObject > -1 && IsMouseButtonDown(0) && !IsMouseButtonPressed(0)) {
+        VerletObject& obj_2 = verletObjects[movingObject];
+
+        obj_2.position_current = ballPosition;
+        obj_2.position_old = obj_2.position_current;
+
+        return;
+    }
+
+    if (IsMouseButtonPressed(0)) {
+        if (movingObject < 0 && IsMouseButtonPressed(0)) {
+            for (int i = 0; i < verletObjects.size(); i++) {
+                VerletObject& obj = verletObjects[i];
+
+                const Vector2 point = { GetMouseX(), GetMouseY() };
+                const Vector2 center = { centerX + (int)((obj.position_current.x - cameraX) * cameraZoom), centerY + (int)((obj.position_current.y - cameraY) * cameraZoom) };
+                const int radius = obj.radius * cameraZoom;
+
+                if (CheckCollisionPointCircle(point, center, radius))
+                {
+                    movingObject = i;
+                    
+                    VerletObject& obj_2 = verletObjects[movingObject];
+                    objectStatic = obj_2.physics;
+
+                    obj_2.physics = false;
+
+                    obj_2.position_current = ballPosition;
+                    obj_2.position_old = obj_2.position_current;
+
+                    break;
+                }
+            }
+
+            if (movingObject > -1)
+                return;
+        }
 
         verletObjects.push_back({ ballPosition, randomFloat(10, 50), ColorFromHSV(randomFloat(0, 360), randomFloat(0, 100), randomFloat(0, 100)), true, ballPosition });
     }
@@ -87,7 +151,7 @@ int main(void)
         SetWindowSize(screenWidth, screenHeight);
 
         controlsUpdate();
-        solver.update(verletObjects, links, GetFrameTime());
+        if (!paused) solver.update(verletObjects, links, GetFrameTime());
 
         BeginDrawing();
 
@@ -107,6 +171,7 @@ int main(void)
         DrawFPS(5, 5);
         DrawText((std::to_string(verletObjects.size()) + std::string(" OBJECTS")).c_str(), 155, 5, 20, WHITE);
         DrawText((std::to_string(links.size()) + std::string(" LINKS")).c_str(), 355, 5, 20, WHITE);
+        DrawText((std::string("PAUSED: ") + (paused ? std::string("TRUE") : std::string("FALSE"))).c_str(), 555, 5, 20, WHITE);
 
         EndDrawing();
     }
