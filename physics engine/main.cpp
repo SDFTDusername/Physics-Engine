@@ -26,6 +26,7 @@ float dtTime = 0;
 
 int movingObject = -1;
 bool objectStatic = false;
+Vec2 objectOffset;
 
 bool paused = false;
 
@@ -77,7 +78,7 @@ void controlsUpdate()
     if (movingObject > -1 && IsMouseButtonDown(0) && !IsMouseButtonPressed(0)) {
         VerletObject& obj_2 = verletObjects[movingObject];
 
-        obj_2.position_current = ballPosition;
+        obj_2.position_current = ballPosition + objectOffset;
         obj_2.position_old = obj_2.position_current;
 
         return;
@@ -85,12 +86,12 @@ void controlsUpdate()
 
     if (IsMouseButtonPressed(0)) {
         if (movingObject < 0 && IsMouseButtonPressed(0)) {
-            for (int i = 0; i < verletObjects.size(); i++) {
+            for (int i(verletObjects.size()); i--;) {
                 VerletObject& obj = verletObjects[i];
 
-                const Vector2 point = { GetMouseX(), GetMouseY() };
-                const Vector2 center = { centerX + (int)((obj.position_current.x - cameraX) * cameraZoom), centerY + (int)((obj.position_current.y - cameraY) * cameraZoom) };
-                const int radius = obj.radius * cameraZoom;
+                const Vector2 point = { (float)GetMouseX(), (float)GetMouseY() };
+                const Vector2 center = { (float)(centerX + ((obj.position_current.x - cameraX) * cameraZoom)), (float)(centerY + ((obj.position_current.y - cameraY) * cameraZoom)) };
+                const float radius = obj.radius * cameraZoom;
 
                 if (CheckCollisionPointCircle(point, center, radius))
                 {
@@ -99,9 +100,13 @@ void controlsUpdate()
                     VerletObject& obj_2 = verletObjects[movingObject];
                     objectStatic = obj_2.physics;
 
+                    Vec2 pointVec2 = { point.x, point.y };
+                    Vec2 centerVec2 = { center.x, center.y };
+                    objectOffset = centerVec2 - pointVec2;
+
                     obj_2.physics = false;
 
-                    obj_2.position_current = ballPosition;
+                    obj_2.position_current = ballPosition + objectOffset;
                     obj_2.position_old = obj_2.position_current;
 
                     break;
