@@ -12,16 +12,9 @@ struct VerletObject
     Vec2 position_old;
     Vec2 acceleration;
 
-    void updatePosition(float dt, Sound hit)
+    void updatePosition(float dt)
     {
         const Vec2 velocity = position_current - position_old;
-
-        /*
-        if (Vec2Math::length(velocity) < -0.5f)
-        {
-            PlaySound(hit);
-        }
-        */
 
         position_old = position_current;
         position_current = position_current + velocity + acceleration * dt * dt;

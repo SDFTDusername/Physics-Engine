@@ -10,7 +10,7 @@ struct Solver
 {
     const Vec2 gravity = { 0, 1000 };
 
-    void update(std::vector<VerletObject>& verletObjects, std::vector<Link>& links, float dt, Sound hit)
+    void update(std::vector<VerletObject>& verletObjects, std::vector<Link>& links, float dt)
     {
         const uint32_t sub_steps = 8;
         const float sub_dt = dt / sub_steps;
@@ -24,8 +24,8 @@ struct Solver
                 links[l_i].apply(verletObjects);
             }
 
-            solveCollisions(verletObjects, sub_dt, hit);
-            // updatePositions(verletObjects, sub_dt, hit);
+            solveCollisions(verletObjects, sub_dt);
+            // updatePositions(verletObjects, sub_dt);
         }
     }
 
@@ -78,7 +78,7 @@ struct Solver
         }
     }
 
-    void solveCollisions(std::vector<VerletObject>& verletObjects, float dt, Sound hit)
+    void solveCollisions(std::vector<VerletObject>& verletObjects, float dt)
     {
         for (int i(verletObjects.size()); i--;)
         {
@@ -104,18 +104,18 @@ struct Solver
                 }
             }
 
-            verletObjects[i].updatePosition(dt, hit);
+            verletObjects[i].updatePosition(dt);
         }
     }
 
-    void updatePositions(std::vector<VerletObject>& verletObjects, float dt, Sound hit)
+    void updatePositions(std::vector<VerletObject>& verletObjects, float dt)
     {
         for (int i(verletObjects.size()); i--;)
         {
             if (!verletObjects[i].physics)
                 continue;
 
-            verletObjects[i].updatePosition(dt, hit);
+            verletObjects[i].updatePosition(dt);
         }
     }
 };
