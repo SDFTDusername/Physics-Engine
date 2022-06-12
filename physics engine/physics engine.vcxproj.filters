@@ -21,9 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vec2.hpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="random.hpp">
@@ -38,7 +35,7 @@
     <ClInclude Include="verletObject.hpp">
       <Filter>Resource Files\physics</Filter>
     </ClInclude>
-    <ClInclude Include="vec2math.hpp">
+    <ClInclude Include="vector2_math.hpp">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

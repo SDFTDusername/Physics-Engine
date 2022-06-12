@@ -148,13 +148,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="vec2.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="link.hpp" />
     <ClInclude Include="random.hpp" />
     <ClInclude Include="solver.hpp" />
-    <ClInclude Include="vec2math.hpp" />
+    <ClInclude Include="vector2_math.hpp" />
     <ClInclude Include="verletObject.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

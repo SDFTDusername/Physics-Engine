@@ -1,6 +1,7 @@
 #pragma once
-#include "vec2.hpp"
-#include "vec2math.hpp"
+#include "raylib.h"
+#include "raymath.h"
+#include "vector2_math.hpp"
 #include "verletObject.hpp"
 #include <vector>
 
@@ -15,12 +16,12 @@ struct Link
         VerletObject& obj_1 = verletObjects[object_1];
         VerletObject& obj_2 = verletObjects[object_2];
 
-        const Vec2 axis = obj_1.position_current - obj_2.position_current;
-        const float dist = Vec2Math::length(axis);
-        const Vec2 n = axis / dist;
+        const Vector2 axis = obj_1.position_current - obj_2.position_current;
+        const float dist = Vector2Length(axis);
+        const Vector2 n = axis / dist;
         const float delta = target_dist - dist;
 
-        if (obj_1.physics) obj_1.position_current += n * delta * 0.5f;
-        if (obj_2.physics) obj_2.position_current -= n * delta * 0.5f;
+        if (!obj_1.static_object) obj_1.position_current = obj_1.position_current + (n * delta * 0.5f);
+        if (!obj_2.static_object) obj_2.position_current = obj_2.position_current - (n * delta * 0.5f);
     }
 };
