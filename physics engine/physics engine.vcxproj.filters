@@ -13,8 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\physics">
+    <Filter Include="Resource Files\Physics">
       <UniqueIdentifier>{454dc677-1063-4d64-80f1-26f65a90fd0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Raylib">
+      <UniqueIdentifier>{9b613082-3460-487e-ac64-8a0f3fec00f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,16 +30,16 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="link.hpp">
-      <Filter>Resource Files\physics</Filter>
+      <Filter>Resource Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="solver.hpp">
-      <Filter>Resource Files\physics</Filter>
+      <Filter>Resource Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="verletObject.hpp">
-      <Filter>Resource Files\physics</Filter>
+    <ClInclude Include="verlet_object.hpp">
+      <Filter>Resource Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="vector2_math.hpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Raylib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

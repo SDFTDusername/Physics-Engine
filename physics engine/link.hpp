@@ -1,8 +1,9 @@
 #pragma once
+
 #include "raylib.h"
 #include "raymath.h"
 #include "vector2_math.hpp"
-#include "verletObject.hpp"
+#include "verlet_object.hpp"
 #include <vector>
 
 struct Link
@@ -21,7 +22,7 @@ struct Link
         const Vector2 n = axis / dist;
         const float delta = target_dist - dist;
 
-        if (!obj_1.static_object) obj_1.position_current = obj_1.position_current + (n * delta * 0.5f);
-        if (!obj_2.static_object) obj_2.position_current = obj_2.position_current - (n * delta * 0.5f);
+        if (!obj_1.static_object) obj_1.position_current += n * delta * 0.5f;
+        if (!obj_2.static_object) obj_2.position_current -= n * delta * 0.5f;
     }
 };

@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include "vector2_math.hpp"
-#include "verletObject.hpp"
+#include "verlet_object.hpp"
 #include "link.hpp"
 #include "solver.hpp"
 #include "random.hpp"

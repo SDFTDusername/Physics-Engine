@@ -1,4 +1,5 @@
 #pragma once
+
 #include "raylib.h"
 #include "vector2_math.hpp"
 
@@ -16,13 +17,13 @@ struct VerletObject
         const Vector2 velocity = position_current - position_old;
 
         position_old = position_current;
-        position_current = position_current + (velocity + acceleration * dt * dt);
+        position_current += velocity + acceleration * dt * dt;
 
         acceleration = {};
     }
 
     void accelerate(const Vector2 acc)
     {
-        acceleration = acceleration + acc;
+        acceleration += acc;
     }
 };
