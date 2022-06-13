@@ -1,5 +1,3 @@
-#define RAYGUI_IMPLEMENTATION
-
 #include "raylib.h"
 #include "vector2_math.hpp"
 #include "verletObject.hpp"
