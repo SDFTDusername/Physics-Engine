@@ -3,118 +3,6 @@
 #include "raylib.h"
 #include "raymath.h"
 
-Vector2 operator+=(Vector2& vec1, const Vector2& vec2)
-{
-    vec1.x += vec2.x;
-    vec1.y += vec2.y;
-
-    return vec1;
-}
-
-Vector2 operator-=(Vector2& vec1, const Vector2& vec2)
-{
-    vec1.x -= vec2.x;
-    vec1.y -= vec2.y;
-
-    return vec1;
-}
-
-Vector2 operator*=(Vector2& vec1, const Vector2& vec2)
-{
-    vec1.x *= vec2.x;
-    vec1.y *= vec2.y;
-
-    return vec1;
-}
-
-Vector2 operator/=(Vector2& vec1, const Vector2& vec2)
-{
-    if (vec1.x == 0 || vec1.y == 0 || vec2.x == 0 || vec2.y == 0)
-    {
-        vec1 = { 0, 0 };
-
-        return Vector2One();
-    }
-
-    vec1.x /= vec2.x;
-    vec1.y /= vec2.y;
-
-    return vec1;
-}
-
-
-Vector2 operator+=(Vector2& vec, const float& val)
-{
-    vec.x += val;
-    vec.y += val;
-
-    return vec;
-}
-
-Vector2 operator-=(Vector2& vec, const float& val)
-{
-    vec.x -= val;
-    vec.y -= val;
-
-    return vec;
-}
-
-Vector2 operator*=(Vector2& vec, const float& val)
-{
-    vec.x *= val;
-    vec.y *= val;
-
-    return vec;
-}
-
-Vector2 operator/=(Vector2& vec, const float& val)
-{
-    if (val == 0 || vec.x == 0 || vec.y == 0)
-        return Vector2One();
-
-    vec.x /= val;
-    vec.y /= val;
-
-    return vec;
-}
-
-
-Vector2 operator+=(Vector2& vec, const int& val)
-{
-    vec.x += val;
-    vec.y += val;
-
-    return vec;
-}
-
-Vector2 operator-=(Vector2& vec, const int& val)
-{
-    vec.x -= val;
-    vec.y -= val;
-
-    return vec;
-}
-
-Vector2 operator*=(Vector2& vec, const int& val)
-{
-    vec.x *= val;
-    vec.y *= val;
-
-    return vec;
-}
-
-Vector2 operator/=(Vector2& vec, const int& val)
-{
-    if (val == 0 || vec.x == 0 || vec.y == 0)
-        return Vector2One();
-
-    vec.x /= val;
-    vec.y /= val;
-
-    return vec;
-}
-
-
 Vector2 operator+(const Vector2& v1, const Vector2& v2)
 {
     return Vector2Add(v1, v2);
@@ -225,4 +113,91 @@ Vector2 operator/(const int& val, const Vector2& vec)
     if (val != 0)
         return Vector2Scale(vec, (1 / (float)val));
     return Vector2One();
+}
+
+
+Vector2 operator+=(Vector2& vec1, const Vector2& vec2)
+{
+    vec1 = vec1 + vec2;
+
+    return vec1;
+}
+
+Vector2 operator-=(Vector2& vec1, const Vector2& vec2)
+{
+    vec1 = vec1 - vec2;
+
+    return vec1;
+}
+
+Vector2 operator*=(Vector2& vec1, const Vector2& vec2)
+{
+    vec1 = vec1 * vec2;
+
+    return vec1;
+}
+
+Vector2 operator/=(Vector2& vec1, const Vector2& vec2)
+{
+    vec1 = vec1 / vec2;
+
+    return vec1;
+}
+
+
+Vector2 operator+=(Vector2& vec, const float& val)
+{
+    vec = vec + val;
+
+    return vec;
+}
+
+Vector2 operator-=(Vector2& vec, const float& val)
+{
+    vec = vec - val;
+
+    return vec;
+}
+
+Vector2 operator*=(Vector2& vec, const float& val)
+{
+    vec = vec * val;
+
+    return vec;
+}
+
+Vector2 operator/=(Vector2& vec, const float& val)
+{
+    vec = vec / val;
+
+    return vec;
+}
+
+
+Vector2 operator+=(Vector2& vec, const int& val)
+{
+    vec = vec + val;
+
+    return vec;
+}
+
+Vector2 operator-=(Vector2& vec, const int& val)
+{
+    vec = vec - val;
+
+    return vec;
+}
+
+Vector2 operator*=(Vector2& vec, const int& val)
+{
+    vec = vec * val;
+
+    return vec;
+}
+
+Vector2 operator/=(Vector2& vec, const int& val)
+{
+    vec = vec / val;
+
+    return vec;
 }
