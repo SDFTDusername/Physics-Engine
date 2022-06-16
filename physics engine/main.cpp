@@ -3,7 +3,6 @@
 #include "verlet_object.hpp"
 #include "link.hpp"
 #include "solver.hpp"
-#include "random.hpp"
 #include <math.h>
 #include <string>
 #include <vector>
@@ -28,7 +27,7 @@ Vector2 grabObjectOffset;
 
 void spawnBall(const Vector2 position)
 {
-    verletObjects.push_back({ position, randomFloat(10, 50), ColorFromHSV(randomFloat(0, 360), randomFloat(0, 100), randomFloat(0, 100)), false, position });
+    verletObjects.push_back({ position, (float)GetRandomValue(10, 50), ColorFromHSV((float)GetRandomValue(0, 360), (float)GetRandomValue(0, 100), (float)GetRandomValue(0, 100)), false, position });
 }
 
 void test()

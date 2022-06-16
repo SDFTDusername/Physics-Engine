@@ -26,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="random.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="link.hpp">
       <Filter>Resource Files\Physics</Filter>
     </ClInclude>
