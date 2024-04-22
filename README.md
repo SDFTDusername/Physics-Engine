@@ -1,3 +1,5 @@
+seems like you need ``MSVCP140.dll`` to run this program, which i haven't included in the release builds
+
 # Physics Engine
 Verlet Physics simulation made with C++ and Raylib
 <br/>
